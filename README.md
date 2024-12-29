@@ -98,7 +98,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install no-style-please
+    $ gem install no-style-please2
  
 ### Customize the menu
 
