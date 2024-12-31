@@ -18,7 +18,14 @@ Inspired by [elly's site](http://tilde.town/~elly/) [riggraz](https://riggraz.de
   ONLY textual contents of article will be encrypted ,the pictures will  **NOT** be encrypted
 
   
-  #### how to encrypt your post
+  #### Encrypt your post
+
+
+> ✧ Using this [web tool, it's very convenient to complete the following tasks](https://vitock.github.io/jekyll-zeta/post/2024/12/30/ToolForEncryption.html) 
+
+
+
+
       1. generate your own public & private key to protect your password
 ```
 ltectool g
