@@ -7,6 +7,8 @@ entries:
       - title: a (nearly) no-CSS, fast, minimalist Jekyll theme.
       - title: github repo
         url: https://github.com/vitock/no-style-please
+      - title: Protect your password 
+        url: https://vitock.github.io/jekyll-zeta/post/2024/12/30/ToolForEncryption.html
 
 
   - title: all posts
