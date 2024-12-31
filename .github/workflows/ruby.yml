@@ -44,7 +44,7 @@ jobs:
         chmod +x ./runThisToBuild && ./runThisToBuild
         pwd 
         ls -al
-        find ./docs -maxdepth 1 -type f -not -name  "*.html" -exec rm  {} \;
+        find ./docs -maxdepth 1 -type f -not \( -name  "*.html" -o -name "*.png" \) -exec rm  {} \;
         ls docs
         ls -al docs/post
 
@@ -64,7 +64,7 @@ jobs:
          rm -rf docs 
         ./runThisToBuild
 
-        find ./dist -maxdepth 1 -type f -not -name  "*.html" -exec rm  {} \;
+        find ./dist -maxdepth 1 -type f -not \( -name  "*.html" -o -name "*.png" \) -exec rm  {} \;
 
  
 
