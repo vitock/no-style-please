@@ -2,7 +2,8 @@
 
 if [ -z "$JEKYLL_EC_PRIVATEKEY" ]; then
   echo "JEKYLL_EC_PRIVATEKEY is not set"
-  export set JEKYLL_EC_PRIVATEKEY='L28e3HZofHGGIr3ZZTIPhtfBfTbvxedNYF1xpJdx5PA='
+  # export  JEKYLL_EC_PRIVATEKEY='L28e3HZofHGGIr3ZZTIPhtfBfTbvxedNYF1xpJdx5PA='
+  exit 1
 
   echo 'JEKYLL_EC_PRIVATEKEY is now set to DEBUG value'
 fi

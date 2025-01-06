@@ -7,9 +7,9 @@ Inspired by [elly's site](http://tilde.town/~elly/) [riggraz](https://riggraz.de
 
 <img src="https://raw.githubusercontent.com/riggraz/no-style-please/master/_screenshots/featured-image.png" />
 
-## Features
+# Features
 
-+ ### new
++ # new
   + tags support 
   + mathjax , inluce_code post_link support, include  support, link to other post 
   + encrytion support. Only those who know the password can view the article
@@ -18,12 +18,34 @@ Inspired by [elly's site](http://tilde.town/~elly/) [riggraz](https://riggraz.de
   ONLY textual contents of article will be encrypted ,the pictures will  **NOT** be encrypted
 
   
-  #### Encrypt your post
+# Encrypt your post
 
+Here are two options for encrypting your password: the first is a web-based method, and the second involves using a Ruby tool. We highly recommend choosing the web-based method.
 
-> ✧ Using this [web tool, it's very convenient to complete the following tasks](https://vitock.github.io/jekyll-zeta/post/2024/12/30/ToolForEncryption.html) 
+> ✧ Using this [web tool, it's very convenient to complete the following tasks](https://vitock.github.io/jekyll-zeta/Proctect-your-password) 
 
+1. get your privateKey
+  open the website 'https://vitock.github.io/jekyll-zeta/Proctect-your-password'
+  ![](s1.png)
 
+2. encrypt Your password 
+  ![](s2.png)
+
+3. edit the `_config.yml`
+   
+![alt text](image.png)
+
+4. set your private Key to github ci 
+   ![alt text](image-1.png)
+   ![alt text](image-2.png)
+
+5. push the repo
+
+## using web tool
+
+1. generate keypair through this website
+
+## using ruby tool
 
 
       1. generate your own public & private key to protect your password
