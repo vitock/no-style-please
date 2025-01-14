@@ -60,3 +60,9 @@ enc_tags:
     - tag: encrypt2
       # 123
       password: AQAQACAAIQCvWkhJdhn0b21Pz381AdTeMLb5bRO4d2F3usQtpIL0fDD0G8cg4klENXxJNX+rAHwD8VW2iJo4hZKDQrjdOjbJFugo60XnMmbdLEfzXpkqGpjjbe875/owWyNnGGPk3Vf4
+    - tag: encrypt_abc
+      # abc
+      password: AQAQACAAIQCX8chuGK6MCLP9eGuTUCcmHwjxAQv74m/iir3IzZU1j9JPyGnfi2qGNcU3dryjTT8Co4V6vRtgbnl3onQBcO3hcC8FgCd9KJpe/F59TIdmyEPTER1U2OSG5xo6jsFzsAxt
+    - tag: encrypt_456
+       
+      password: AQAQACAAIQASewKsG2ThLm8E0ZQEvTxhoQ3VbVDECINAwi9mxoHJiT5xI8pjCMgfeSpx3q4WpusD6EaCifx7ZjeZeVfdZDVKIJ86CIZbyMPLNwJoNP1K/XWbCiyvtzoMF5nbBtkIgKeJ

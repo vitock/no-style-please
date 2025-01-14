@@ -27,8 +27,7 @@ layout: default
     {% assign ymPre = ymCur %}
     
     <li>
-          <span>{{- post.date | date: archive_date_titleformat }}</span>
-          <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>
+        {% include postitem.html post=post%}
     </li>
 
 {%- endfor -%}

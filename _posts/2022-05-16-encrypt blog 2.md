@@ -5,7 +5,7 @@ date: "2022-05-16 19:00:58"
 categories: 
  - blog 
 mathjax: false 
-# key: false 
+key: '1234' 
 tags:
  - encrypt2
  - blog

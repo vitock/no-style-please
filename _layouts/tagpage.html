@@ -7,9 +7,7 @@ layout: default
 
 <ul>
   {% for post in site.tags[page.tag] %}
-  <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a> ({{ post.date | date_to_string }})<br>
-      {{ post.description }}
-        </li>
+  <li>{% include postitem.html post=post fmt="%Y-%m-%d" %}</li>
         {% endfor %}
 
 {% if site.theme_config.tag_showall %}

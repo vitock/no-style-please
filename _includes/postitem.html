@@ -1,0 +1,11 @@
+{% capture archive_date_titleformat %} {{ site.theme_config.archive_title_date_format | default: "%m-%d"}}{% endcapture %}
+{%- assign post = include.post -%}
+{%- assign fmt = include.fmt | default:archive_date_titleformat -%}
+
+{% assign encid = '' | get_encrypt_id:post | default: "" %}
+<span>{{- post.date | date: fmt }}</span> 
+<a href="{{ post.url | relative_url }}">{{ post.title | downcase }} 
+    {%- if encid.size > 1 -%}
+    <img  style="width:12px;height:12px;display: inline;margin-left: 5px;" src="{{ 'assets/image/lock.svg' | relative_url}}">
+    {%- endif -%}
+</a>
