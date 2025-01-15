@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>encrypted blog:abc</title>
+ 
+     
+     
+     
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.png" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="//no-style.kr7y.workers.dev/nostyle.css?5fe911a4ec" /> 
+
+</head><body a="auto">
+    <main class="page-content" aria-label="Content">
+      <div class="w">
+        <a href="/">..</a><article>
+  <p class="post-meta">
+    <time datetime="2022-05-16 18:55:32 +0000">2022-05-16</time>
+  </p>
+  
+  <h1>encrypted blog:abc</h1>
+  
+  
+      <a href="/tags/blog.html"><text><nobr>#blog</nobr></text>&nbsp;</a>
+        
+  
+      <a href="/tags/no-style-please2.html"><text><nobr>#no-style-please2</nobr></text>&nbsp;</a>
+        </span>
+<div id="encrypted">
+    <h3> Content is Encryped :) </h3>
+   
+    <input style="width:100%; " type="password" id="passwordinput" placeholder="输入密码"></input>
+    <p>
+        <input type="button" value= "Decrypt" id="DecryptBtn"/>
+        <input type="button" value= "Clear password cache" id="ClearBtn1"/>
+    
+    </div>
+    
+    <div id="decrypted"  style = "display:none">
+        <p>
+        <div>
+           
+            <input type="button" value= "Encrypt" id="EncryptBtn"/>
+
+            <input type="button" value= "Clear password cache" id="ClearBtn2"/>
+           
+        </div>
+        <div id = 'decryptContent'>
+        </div>
+    </div>
+    <script>
+        var exports = exports || {} 
+    </script>
+    <script src="//cdn.jsdelivr.net/gh/vitock/jsdelivr@0.1.2/js/base64js.js"></script>
+
+  <script>
+
+  
+  </script>
+
+  
+
+
+    <script>
+     
+
+    
+    const keyData  = "E2.KT9Xla8nwgq9zpiw2NQ+sWV6e4x+1QJ7TLg3womw5Sbmgu4/N+9ZZxudspCTwcGMJTUICWoztDI67diH/ZC3fQ=="
+    const contentEnc = 'E2.zeMmpYBFpPqoQTGfbKjF5MxhTEqsdEHB8RGGrgljENoBKdkmExu0afSOKBnkhilbvOa0Jo34cOiYmC3GHFb9gA10PXCqsq9Udrr1nU6Hz+mLEgyRwZQQSxkAsqZtWiejCkqsV5NlMoQJ74naIzyeJTCNZ7K4zQjr+h+kv24IjHfUtUtCb5MkCyxVN1DDKzJAzLqNuM55lXRTKDEeB+Xjwm/8GHaj3Fueg/Ylu+Z0m6wh9g0MMtf/VvVzAaoTtuswuXXmKA99I/HhpXwdVscbgeJ+PwGL0YgEM21zFULfwfHNyGarhvSgXA+Sjix2vXYTMh93Uc1szxRxLjbbzv/dnKUrLqgh5Udw6+wfvRuu8wxelyeZqKbogF6b6LGZ87njYTTF5tCwJEc3iGnWIxUQv90BkHpsHDE8dLHrF1BjQ1ntQqxkRV0wTd8/KI+Tu6o6dj4pBU4XIGb83tjjVAT5/A=='
+    
+        !function(){
+
+            const substl = crypto.subtle
+            const preFix = 'cff9f7f298d96aff127148ebe5ef43450';
+            const encid = preFix
+            const encryptedContent = contentEnc;
+            const base64str = encryptedContent.substring(3)
+            const bfMsg = base64js.decode(base64str)
+            const bfIv = bfMsg.subarray(0,12)
+            const bfCipher = bfMsg.subarray(12)
+            
+            async function genKey(psw){
+                var keyRaw = new TextEncoder().encode(psw)
+                var key = await substl.importKey('raw',keyRaw,'PBKDF2',false,["deriveBits"])
+                const salt = 'this is a salt string 20221019'
+                let pbkdf2  = {
+                    name:"PBKDF2",hash: "SHA-256",iterations: 12345,salt: new TextEncoder().encode(salt)
+                }
+                return  await substl.deriveBits(pbkdf2,key,256);
+            }
+
+        async function decryptRaw(msg64,key){
+            const base64str = msg64.substring(3)
+            const bfMsg = base64js.decode(base64str)
+            const bfIv = bfMsg.subarray(0,16)
+            const bfCipher = bfMsg.subarray(16)
+
+            var aeskey = {
+                name:"AES-CBC",
+            }
+            var keyObj = await substl.importKey('raw',key,aeskey,false,['decrypt'])
+            var aesDec= {name: "AES-CBC",iv:bfIv}
+            var bfDec
+            try{
+                bfDec  = await substl.decrypt(aesDec,keyObj,bfCipher)
+            }catch (error) {
+                console.log(error)
+                throw error
+            }
+            
+            return  new  Uint8Array(bfDec)
+        }
+        async function checkKey(key){
+             
+            var testData = '7cca3e84807d7e2163df520b';
+            var testDataEnc = 'E2.LkVBf7Xdl6aV35Dw+wtKAjjOvz0Xp/dy1rxjatFXyAO6WQx6A6BnG3OGutozK9ZH';
+
+            let arrKeys = keyData.split('#')
+            let keyBf = null
+            for (let i = 0; i < arrKeys.length; i++) {
+                const element = arrKeys[i];
+                try{
+                    
+                    let d = await decryptRaw(element,key)
+                    let dec = await decryptRaw(testDataEnc,d)
+                    if((new TextDecoder).decode(dec) == testData ){
+                        keyBf = d;
+                        break;
+                    }
+                }catch (e){
+                }
+            }
+
+            return keyBf
+        }
+ 
+        async function decrypt (key0,isCached){
+            // const key = Uint8Array([...]); // 32 bytes key
+            
+            var key  = ''
+            if(isCached){
+                key = readKey()
+            }
+            else{
+                var keyS = preFix + key0 +  preFix
+                key = await genKey(keyS)
+            }
+            if (key.length == 0) {
+                return
+            }
+
+            var aeskey = {
+                name:"AES-CBC",
+                length:256
+            }
+            
+            var keyObj = await substl.importKey('raw',key,aeskey,false,['decrypt'])
+            var aesDec= {name: "AES-CBC",iv:bfIv}
+            try {
+                let keyBf = await checkKey(key)
+                if(!keyBf){
+                    throw 'error psw'
+                }
+                var bfDec  = await decryptRaw(contentEnc,keyBf)
+                var plain = new TextDecoder().decode(bfDec);
+                setKey(key)
+                document.getElementById("encrypted").style.display = 'none'
+                // / show decrypted 
+    
+                document.getElementById("decrypted").style.display = 'block'
+                document.getElementById("decryptContent").innerHTML = plain
+    
+                setTimeout(function(){
+                    var loadevent = document.createEvent("Event")
+                    loadevent.initEvent("load", true, true)
+    
+                    var DOMContentLoaded_event = document.createEvent("Event")
+                    DOMContentLoaded_event.initEvent("DOMContentLoaded", true, true)
+    
+                    window.dispatchEvent(loadevent)
+                    window.dispatchEvent(DOMContentLoaded_event)
+    
+                }, 500);
+            } catch (error) {
+                console.log(error)
+                alert("wrong password.")
+            }
+        }
+        
+        document.getElementById("DecryptBtn").onclick = function(){
+            var key = document.getElementById("passwordinput").value
+            decrypt(key);        
+        }
+    
+        document.getElementById("EncryptBtn").onclick = function(){
+            /// hide input
+            document.getElementById("encrypted").style.display = 'block'
+            // / show decrypted 
+            document.getElementById("decrypted").style.display = "none"
+    
+            clearKey()
+        }
+
+        document.getElementById("EncryptBtn").onclick = function(){
+            /// hide input
+            document.getElementById("encrypted").style.display = 'block'
+            // / show decrypted 
+            document.getElementById("decrypted").style.display = "none"
+    
+            clearKey()
+        }
+
+        document.getElementById("ClearBtn1").onclick = function(){
+            localStorage.clear();
+            document.getElementById('passwordinput').value = ''
+        }
+        document.getElementById("ClearBtn2").onclick = function(){
+            localStorage.clear();
+        }
+
+        
+
+        
+    
+        
+            function readKey(){
+                var key = encid;
+                var v = localStorage.getItem(key)
+                if (v) {
+                    return base64js.decode(v)
+                }else{
+                    return null
+                }
+            }
+            function setKey(value){
+                var key = encid
+                var arr = new Uint8Array(value)
+                var b64 = base64js.encode(arr)
+                return localStorage.setItem(key,b64)
+            }
+            function clearKey() {
+                var key = encid
+                localStorage.removeItem(key)
+            }
+            var cachekey = readKey()
+            if(cachekey){
+                decrypt(cachekey,true)
+            }
+
+        
+        
+        
+ 
+    }()
+    
+    </script>
+    
+  
+  
+</article>
+
+      </div>
+    </main>
+  </body>
+</html>
